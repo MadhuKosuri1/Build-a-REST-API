@@ -7,6 +7,7 @@ This is a comprehensive REST API for managing books and authors with authenticat
 **Base URL:** `http://localhost:8000/api/`
 
 **Documentation:**
+
 - Swagger UI: http://localhost:8000/api/docs/
 - ReDoc: http://localhost:8000/api/redoc/
 
@@ -23,6 +24,7 @@ The API uses JWT (JSON Web Token) authentication. All protected endpoints requir
 **Endpoint:** `POST /api/users/`
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/users/ \
   -H "Content-Type: application/json" \
@@ -36,6 +38,7 @@ curl -X POST http://localhost:8000/api/users/ \
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "id": 1,
@@ -53,6 +56,7 @@ curl -X POST http://localhost:8000/api/users/ \
 **Endpoint:** `POST /api/token/`
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/token/ \
   -H "Content-Type: application/json" \
@@ -63,6 +67,7 @@ curl -X POST http://localhost:8000/api/token/ \
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
@@ -77,6 +82,7 @@ curl -X POST http://localhost:8000/api/token/ \
 When the access token expires, use the refresh token to get a new one.
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/token/refresh/ \
   -H "Content-Type: application/json" \
@@ -86,6 +92,7 @@ curl -X POST http://localhost:8000/api/token/refresh/ \
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
@@ -101,6 +108,7 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
 Example:
+
 ```bash
 curl http://localhost:8000/api/books/ \
   -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
@@ -119,16 +127,19 @@ curl http://localhost:8000/api/books/ \
 Public endpoint - no authentication required.
 
 **Query Parameters:**
+
 - `search`: Search by author name or email
 - `ordering`: Sort by field (e.g., `created_at`, `-created_at` for descending)
 - `page`: Page number for pagination
 
 **Example:**
+
 ```bash
 curl "http://localhost:8000/api/authors/?search=rowling&ordering=-created_at"
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "count": 1,
@@ -155,6 +166,7 @@ curl "http://localhost:8000/api/authors/?search=rowling&ordering=-created_at"
 Requires authentication.
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/authors/ \
   -H "Content-Type: application/json" \
@@ -168,6 +180,7 @@ curl -X POST http://localhost:8000/api/authors/ \
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "id": 2,
@@ -187,6 +200,7 @@ curl -X POST http://localhost:8000/api/authors/ \
 Public endpoint.
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -206,6 +220,7 @@ Public endpoint.
 Requires authentication.
 
 **Request:**
+
 ```bash
 curl -X PUT http://localhost:8000/api/authors/1/ \
   -H "Content-Type: application/json" \
@@ -216,6 +231,7 @@ curl -X PUT http://localhost:8000/api/authors/1/ \
 ```
 
 **Partial Update (PATCH):**
+
 ```bash
 curl -X PATCH http://localhost:8000/api/authors/1/ \
   -H "Content-Type: application/json" \
@@ -240,6 +256,7 @@ Requires authentication.
 Public endpoint - returns all books by the specified author.
 
 **Response (200 OK):**
+
 ```json
 {
   "count": 7,
@@ -268,6 +285,7 @@ Public endpoint - returns all books by the specified author.
 Public endpoint.
 
 **Query Parameters:**
+
 - `search`: Search by title, description, ISBN, or author name
 - `author`: Filter by author ID
 - `in_stock`: Filter by stock status (true/false)
@@ -276,6 +294,7 @@ Public endpoint.
 - `page`: Page number
 
 **Examples:**
+
 ```bash
 # Search for books
 curl "http://localhost:8000/api/books/?search=harry"
@@ -294,6 +313,7 @@ curl "http://localhost:8000/api/books/?author=1&in_stock=true&ordering=-rating"
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "count": 50,
@@ -336,6 +356,7 @@ curl "http://localhost:8000/api/books/?author=1&in_stock=true&ordering=-rating"
 Requires authentication.
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/books/ \
   -H "Content-Type: application/json" \
@@ -353,6 +374,7 @@ curl -X POST http://localhost:8000/api/books/ \
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "id": 2,
@@ -368,6 +390,7 @@ curl -X POST http://localhost:8000/api/books/ \
 Public endpoint.
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -383,6 +406,7 @@ Public endpoint.
 Requires authentication.
 
 **Request:**
+
 ```bash
 curl -X PUT http://localhost:8000/api/books/1/ \
   -H "Content-Type: application/json" \
@@ -408,6 +432,7 @@ Requires authentication.
 Custom action to rate a book.
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/books/1/set_rating/ \
   -H "Content-Type: application/json" \
@@ -418,6 +443,7 @@ curl -X POST http://localhost:8000/api/books/1/set_rating/ \
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -433,12 +459,14 @@ curl -X POST http://localhost:8000/api/books/1/set_rating/ \
 Custom action to toggle stock availability.
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/books/1/toggle_stock/ \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -454,14 +482,17 @@ curl -X POST http://localhost:8000/api/books/1/toggle_stock/ \
 Public endpoint - returns top-rated books.
 
 **Query Parameters:**
+
 - `limit`: Number of books to return (default: 5)
 
 **Example:**
+
 ```bash
 curl "http://localhost:8000/api/books/top_rated/?limit=10"
 ```
 
 **Response (200 OK):**
+
 ```json
 [
   {
@@ -480,6 +511,7 @@ curl "http://localhost:8000/api/books/top_rated/?limit=10"
 Public endpoint - returns books in stock.
 
 **Response (200 OK):**
+
 ```json
 [
   {
@@ -502,6 +534,7 @@ Public endpoint - returns books in stock.
 Public endpoint - no authentication required.
 
 **Request:**
+
 ```bash
 curl -X POST http://localhost:8000/api/users/ \
   -H "Content-Type: application/json" \
@@ -513,6 +546,7 @@ curl -X POST http://localhost:8000/api/users/ \
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "id": 1,
@@ -532,6 +566,7 @@ curl -X POST http://localhost:8000/api/users/ \
 Requires authentication - returns the authenticated user's profile.
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -551,6 +586,7 @@ Requires authentication - returns the authenticated user's profile.
 Requires authentication.
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -570,6 +606,7 @@ Requires authentication.
 Requires authentication.
 
 **Request:**
+
 ```bash
 curl -X PUT http://localhost:8000/api/users/1/ \
   -H "Content-Type: application/json" \
@@ -605,20 +642,21 @@ Or for validation errors:
 
 ### Common HTTP Status Codes
 
-| Status | Meaning |
-|--------|---------|
-| 200 | OK - Request successful |
-| 201 | Created - Resource created successfully |
-| 204 | No Content - Successful deletion |
-| 400 | Bad Request - Invalid input data |
-| 401 | Unauthorized - Authentication required |
-| 403 | Forbidden - Permission denied |
-| 404 | Not Found - Resource not found |
-| 500 | Server Error - Internal server error |
+| Status | Meaning                                 |
+| ------ | --------------------------------------- |
+| 200    | OK - Request successful                 |
+| 201    | Created - Resource created successfully |
+| 204    | No Content - Successful deletion        |
+| 400    | Bad Request - Invalid input data        |
+| 401    | Unauthorized - Authentication required  |
+| 403    | Forbidden - Permission denied           |
+| 404    | Not Found - Resource not found          |
+| 500    | Server Error - Internal server error    |
 
 ### Example Error Responses
 
 **401 Unauthorized:**
+
 ```json
 {
   "detail": "Authentication credentials were not provided."
@@ -626,6 +664,7 @@ Or for validation errors:
 ```
 
 **404 Not Found:**
+
 ```json
 {
   "detail": "Not found."
@@ -633,6 +672,7 @@ Or for validation errors:
 ```
 
 **400 Bad Request:**
+
 ```json
 {
   "title": ["This field may not be blank."],
@@ -649,15 +689,18 @@ Or for validation errors:
 Results are paginated by default with 10 items per page.
 
 **Query Parameters:**
+
 - `page`: Page number (default: 1)
 
 **Response includes:**
+
 - `count`: Total number of items
 - `next`: URL to next page
 - `previous`: URL to previous page
 - `results`: Array of items
 
 **Example:**
+
 ```bash
 curl "http://localhost:8000/api/books/?page=2"
 ```
@@ -668,26 +711,26 @@ curl "http://localhost:8000/api/books/?page=2"
 
 ### Author Fields
 
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| name | string | Yes | Max 255 characters |
-| email | string | Yes | Must be unique |
-| bio | string | No | Unlimited text |
-| birth_date | date | No | Format: YYYY-MM-DD |
+| Field      | Type   | Required | Notes              |
+| ---------- | ------ | -------- | ------------------ |
+| name       | string | Yes      | Max 255 characters |
+| email      | string | Yes      | Must be unique     |
+| bio        | string | No       | Unlimited text     |
+| birth_date | date   | No       | Format: YYYY-MM-DD |
 
 ### Book Fields
 
-| Field | Type | Required | Notes |
-|-------|------|----------|-------|
-| title | string | Yes | Max 255 characters |
-| author_id | integer | Yes | Must be valid author ID |
-| description | string | Yes | Unlimited text |
-| isbn | string | Yes | Max 13 characters, unique |
-| publication_date | date | Yes | Format: YYYY-MM-DD |
-| pages | integer | Yes | Must be > 0 |
-| rating | float | No | 0-5, default: 0 |
-| price | decimal | Yes | Format: 0.00 |
-| in_stock | boolean | No | Default: true |
+| Field            | Type    | Required | Notes                     |
+| ---------------- | ------- | -------- | ------------------------- |
+| title            | string  | Yes      | Max 255 characters        |
+| author_id        | integer | Yes      | Must be valid author ID   |
+| description      | string  | Yes      | Unlimited text            |
+| isbn             | string  | Yes      | Max 13 characters, unique |
+| publication_date | date    | Yes      | Format: YYYY-MM-DD        |
+| pages            | integer | Yes      | Must be > 0               |
+| rating           | float   | No       | 0-5, default: 0           |
+| price            | decimal | Yes      | Format: 0.00              |
+| in_stock         | boolean | No       | Default: true             |
 
 ---
 
@@ -755,16 +798,16 @@ async function getBooks() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       username: "john_doe",
-      password: "password"
-    })
+      password: "password",
+    }),
   });
-  
+
   const { access } = await tokenResponse.json();
-  
+
   const response = await fetch(`${BASE_URL}/books/`, {
-    headers: { "Authorization": `Bearer ${access}` }
+    headers: { Authorization: `Bearer ${access}` },
   });
-  
+
   const books = await response.json();
   console.log(books);
 }
